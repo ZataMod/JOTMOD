@@ -1,5 +1,5 @@
 const productContainer = document.getElementById('product-container');
-const xmlURL = 'https://run.mocky.io/v3/424cbd5b-cd52-4d22-ae9f-1d98adfe9088';
+const xmlURL = 'https://raw.githubusercontent.com/ZataMod/Skin.xml/refs/heads/main/A.xml';
 
 function loadProducts() {
   fetch(xmlURL)
