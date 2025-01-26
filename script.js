@@ -1,5 +1,5 @@
 const productContainer = document.getElementById('product-container');
-const xmlURL = 'https://raw.githubusercontent.com/ZataMod/Skin.xml/refs/heads/main/A.xml';
+const xmlURL = 'https://raw.githubusercontent.com/ZataMod/Skin.xml/refs/heads/main/A.xml?v=' + Date.now(); // Thêm timestamp vào cuối URL
 
 function loadProducts() {
   fetch(xmlURL)
@@ -17,9 +17,9 @@ function loadProducts() {
         const productDiv = document.createElement('div');
         productDiv.classList.add('product');
 
-        const linkElement = document.createElement('a'); // Create an <a> element
+        const linkElement = document.createElement('a');
         linkElement.href = url;
-        linkElement.target = "_blank"; // Open in a new tab
+        linkElement.target = "_blank";
 
         const imageElement = document.createElement('img');
         imageElement.src = image;
@@ -36,8 +36,8 @@ function loadProducts() {
       });
     })
     .catch(error => {
-      console.error('Lỗi khi tải dữ liệu sản phẩm:', error);
-      productContainer.innerHTML = '<p>Lỗi khi tải dữ liệu sản phẩm.</p>';
+      console.error('Lỗi khi tải dữ liệu mod:', error);
+      productContainer.innerHTML = '<p>Lỗi khi tải dữ liệu mod.</p>';
     });
 }
 
