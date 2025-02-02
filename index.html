@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
-  <title>Mod Skin</title>
+  <title>JOT MOD AOV</title>
   <style>
+    /* CSS cho popup vẫn giữ nguyên */
     #popup {
       position: fixed;
       top: 0;
@@ -84,8 +85,25 @@
   </style>
 </head>
 <body>
-  <h1 class="web-title">JOT MOD AOV</h1>
-  <div id="product-container"></div>
+  <header>
+    <div class="logo">JOT MOD AOV</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#mod" class="active">MOD</a></li>
+        <li><a href="#news">Bản Tin</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="mod" class="active-section">
+      <div id="product-container"></div>
+    </section>
+
+    <section id="news" class="hidden-section">
+      <div id="news-container"></div>
+    </section>
+  </main>
 
   <div id="popup" class="hidden">
     <div class="popup-content">
