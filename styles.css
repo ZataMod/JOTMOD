@@ -152,7 +152,6 @@ section {
 
 .product img,.news-item .images-container img {
   width: 100%;
-  aspect-ratio: 16 / 9;
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 10px;
@@ -196,17 +195,25 @@ section {
   white-space: normal;
 }
 
-.news-item .images-container{
+.news-item .images-container {
   position: relative;
   width: 100%;
   overflow: hidden;
+  padding-top: 100%; /* Creates a 1:1 aspect ratio (square) */
+  background-color: #000; /* Black background for empty space */
+  border: 2px solid #666; /* Add a frame around the container */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
-.news-item .images-container img{
-  margin-right: 10px;
+.news-item .images-container img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: auto;
-  max-width: 50%;
   height: auto;
+  max-width: 100%; /* Fit image within the container */
+  max-height: 100%; /* Fit image within the container */
   display: none;
 }
 
@@ -251,9 +258,6 @@ section {
   #product-container, #news-container {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
-  .news-item .images-container img{
-    max-width: 70%;
-  }
 }
 
 @media (max-width: 480px) {
@@ -267,8 +271,5 @@ section {
 
   .nav-links li {
     margin-left: 10px;
-  }
-  .news-item .images-container img{
-    max-width: 90%;
   }
 }

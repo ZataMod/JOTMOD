@@ -43,7 +43,7 @@ function loadNews() {
     .then(xmlString => {
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
-      const newsItems = xmlDoc.querySelectorAll('String');
+      const newsItems = xmlDoc.querySelectorAll('new');
 
       newsItems.forEach(item => {
         const name = item.getAttribute('name');
@@ -57,53 +57,58 @@ function loadNews() {
           newsItemDiv.appendChild(titleElement);
         }
 
-        // Tạo div chứa ảnh
-        const imagesContainer = document.createElement('div');
-        imagesContainer.classList.add('images-container');
-
-        // Xử lý nhiều ảnh
+        // Check if there are any valid images
         const images = item.querySelectorAll('images image');
-        let activeIndex = 0;
-        const imageElements = [];
+        const validImages = Array.from(images).filter(image => image.textContent.trim() !== '');
 
-        images.forEach((image, index) => {
-          const imageUrl = image.textContent;
-          const imageElement = document.createElement('img');
-          imageElement.src = imageUrl;
-          imageElement.alt = name || 'News Image';
-          imageElement.classList.add('product-img');
-          if (index === 0) {
-            imageElement.classList.add('active');
+        if (validImages.length > 0) {
+          // Tạo div chứa ảnh
+          const imagesContainer = document.createElement('div');
+          imagesContainer.classList.add('images-container');
+
+          // Xử lý nhiều ảnh
+          let activeIndex = 0;
+          const imageElements = [];
+
+          validImages.forEach((image, index) => {
+            const imageUrl = image.textContent;
+            const imageElement = document.createElement('img');
+            imageElement.src = imageUrl;
+            imageElement.alt = name || 'News Image';
+            imageElement.classList.add('product-img');
+            if (index === 0) {
+              imageElement.classList.add('active');
+            }
+            imagesContainer.appendChild(imageElement);
+            imageElements.push(imageElement);
+          });
+
+          // Thêm mũi tên nếu có nhiều hơn 1 ảnh
+          if (imageElements.length > 1) {
+            const leftArrow = document.createElement('div');
+            leftArrow.classList.add('arrow', 'arrow-left');
+            leftArrow.innerHTML = '❮';
+            leftArrow.addEventListener('click', () => {
+              imageElements[activeIndex].classList.remove('active');
+              activeIndex = (activeIndex - 1 + imageElements.length) % imageElements.length;
+              imageElements[activeIndex].classList.add('active');
+            });
+
+            const rightArrow = document.createElement('div');
+            rightArrow.classList.add('arrow', 'arrow-right');
+            rightArrow.innerHTML = '❯';
+            rightArrow.addEventListener('click', () => {
+              imageElements[activeIndex].classList.remove('active');
+              activeIndex = (activeIndex + 1) % imageElements.length;
+              imageElements[activeIndex].classList.add('active');
+            });
+
+            imagesContainer.appendChild(leftArrow);
+            imagesContainer.appendChild(rightArrow);
           }
-          imagesContainer.appendChild(imageElement);
-          imageElements.push(imageElement);
-        });
 
-        // Thêm mũi tên nếu có nhiều hơn 1 ảnh
-        if (imageElements.length > 1) {
-          const leftArrow = document.createElement('div');
-          leftArrow.classList.add('arrow', 'arrow-left');
-          leftArrow.innerHTML = '❮';
-          leftArrow.addEventListener('click', () => {
-            imageElements[activeIndex].classList.remove('active');
-            activeIndex = (activeIndex - 1 + imageElements.length) % imageElements.length;
-            imageElements[activeIndex].classList.add('active');
-          });
-
-          const rightArrow = document.createElement('div');
-          rightArrow.classList.add('arrow', 'arrow-right');
-          rightArrow.innerHTML = '❯';
-          rightArrow.addEventListener('click', () => {
-            imageElements[activeIndex].classList.remove('active');
-            activeIndex = (activeIndex + 1) % imageElements.length;
-            imageElements[activeIndex].classList.add('active');
-          });
-
-          imagesContainer.appendChild(leftArrow);
-          imagesContainer.appendChild(rightArrow);
+          newsItemDiv.appendChild(imagesContainer);
         }
-
-        newsItemDiv.appendChild(imagesContainer);
 
         // Xử lý văn bản
         const textElement = item.querySelector('text');
