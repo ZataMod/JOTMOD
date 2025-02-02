@@ -14,19 +14,27 @@ function loadProducts() {
       products.forEach(product => {
         const name = product.getAttribute('name');
         const image = product.getAttribute('image');
+        const url = product.getAttribute('url');
 
         const productDiv = document.createElement('div');
         productDiv.classList.add('product');
 
+        const linkElement = document.createElement('a');
+        linkElement.href = url;
+        linkElement.target = "_blank";
+        
         const imageElement = document.createElement('img');
         imageElement.src = image;
         imageElement.alt = name;
+        linkElement.appendChild(imageElement);
+        document.body.appendChild(linkElement);
+
 
         const nameElement = document.createElement('div');
         nameElement.classList.add('name');
         nameElement.textContent = name;
 
-        productDiv.appendChild(imageElement);
+        productDiv.appendChild(linkElement);
         productDiv.appendChild(nameElement);
         productContainer.appendChild(productDiv);
       });
