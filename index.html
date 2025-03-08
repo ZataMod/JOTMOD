@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <title>JOT MOD AOV</title>
 </head>
 <body>
@@ -19,13 +20,52 @@
 
   <main>
     <section id="mod" class="active-section">
+      <div class="input-box">
+        <input type="text" id="search-mod" placeholder="Tìm kiếm MOD..." oninput="searchProducts()">
+        <i class="fas fa-search"></i>
+      </div>
       <div id="product-container"></div>
     </section>
 
     <section id="news" class="hidden-section">
+      <div class="input-box">
+        <input type="text" id="search-news" placeholder="Tìm kiếm tin tức..." oninput="searchNews()">
+        <i class="fas fa-search"></i>
+      </div>
       <div id="news-container"></div>
     </section>
   </main>
+
+  <script>
+    // Hàm tìm kiếm MOD
+    function searchProducts() {
+      const searchTerm = document.getElementById('search-mod').value.toLowerCase();
+      const products = document.querySelectorAll('#product-container .product');
+      products.forEach(product => {
+        const productName = product.querySelector('.name').textContent.toLowerCase();
+        if (productName.includes(searchTerm)) {
+          product.style.display = 'block';
+        } else {
+          product.style.display = 'none';
+        }
+      });
+    }
+
+    function searchNews() {
+      const searchTerm = document.getElementById('search-news').value.toLowerCase();
+      const newsItems = document.querySelectorAll('#news-container .news-item');
+      newsItems.forEach(item => {
+        const newsTitle = item.querySelector('h3')?.textContent.toLowerCase() || '';
+        const newsText = item.querySelector('p')?.textContent.toLowerCase() || '';
+        if (newsTitle.includes(searchTerm) || newsText.includes(searchTerm)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
   <script src="script.js"></script>
 </body>
 </html>
