@@ -1,1 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quản lý Skin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Quản lý Skin</h1>
 
+  <section id="upload">
+    <h2>Thêm Skin</h2>
+    <label>ID:</label>
+    <input type="text" id="id">
+    <label>Tên Skin:</label>
+    <input type="text" id="name">
+    <label>Ảnh:</label>
+    <input type="file" id="img">
+    <label>File tải:</label>
+    <input type="file" id="url">
+    <button onclick="uploadSkin()">Tải lên</button>
+    <div id="uploadResult" class="message"></div>
+  </section>
+
+  <section id="remove">
+    <h2>Xóa Skin</h2>
+    <label for="removeId">Chọn ID Skin cần xóa:</label>
+    <select id="removeId">
+      <option disabled selected>Đang tải danh sách...</option>
+    </select>
+    <button class="delete-btn" onclick="removeSkin()">Xóa</button>
+    <div id="removeResult" class="message"></div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
