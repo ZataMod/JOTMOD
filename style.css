@@ -1,0 +1,92 @@
+body {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  padding: 20px;
+  background-color: #e6e6e6;
+  color: #000;
+  overflow-x: hidden;
+}
+
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.product-card {
+  background-color: #fff8e1;
+  border: 2px solid #d40000;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(212, 0, 0, 0.2);
+  width: 250px;
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(212, 0, 0, 0.4);
+}
+
+.product-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid #ffd700;
+}
+
+.product-card h2 {
+  font-size: 18px;
+  margin: 10px 0;
+  color: #d40000;
+  font-weight: 600;
+}
+
+.product-card a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 14px;
+  background-color: #d40000;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.product-card a:hover {
+  background-color: #a30000;
+}
+
+@keyframes fall {
+  0% { top: -50px; opacity: 1; visibility: visible; transform: rotate(0deg); }
+  100% { top: 100%; opacity: 0; transform: rotate(360deg); }
+}
+
+.flags {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.flag {
+  position: absolute;
+  width: 30px;
+  animation: fall 10s linear infinite;
+  z-index: 1;
+  pointer-events: none;
+  left: 50%;
+  visibility: hidden;
+  animation-delay: calc(-5s + (random() * 10s));
+}
+
+.flags .flag:nth-child(1) { left: 10%; animation-delay: 0s; }
+.flags .flag:nth-child(2) { left: 30%; animation-delay: 1s; }
+.flags .flag:nth-child(3) { left: 50%; animation-delay: 2s; }
+.flags .flag:nth-child(4) { left: 70%; animation-delay: 3s; }
+.flags .flag:nth-child(5) { left: 90%; animation-delay: 4s; }

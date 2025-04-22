@@ -2,70 +2,78 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <title>JOT MOD AOV</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .popup-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .popup-content {
+      background-color: #222;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      color: #fff;
+      box-shadow: 0 0 15px rgba(0,255,255,0.3);
+    }
+
+    .popup-content h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    .popup-content button {
+      padding: 10px 20px;
+      background-color: #00ffc3;
+      border: none;
+      color: #000;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .popup-content button:hover {
+      background-color: #00cc99;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <div class="logo">JOT MOD AOV</div>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="#mod" class="active">MOD</a></li>
-        <li><a href="#news">Bản Tin</a></li>
-      </ul>
-    </nav>
-  </header>
+  <div class="flags">
+    <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg" alt="Flag">
+    <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg" alt="Flag">
+    <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg" alt="Flag">
+    <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg" alt="Flag">
+    <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg" alt="Flag">
+  </div>
 
-  <main>
-    <section id="mod" class="active-section">
-      <div class="input-box">
-        <input type="text" id="search-mod" placeholder="Tìm kiếm MOD..." oninput="searchProducts()">
-        <i class="fas fa-search"></i>
-      </div>
-      <div id="product-container"></div>
-    </section>
+  <div class="product-grid" id="productGrid"></div>
 
-    <section id="news" class="hidden-section">
-      <div class="input-box">
-        <input type="text" id="search-news" placeholder="Tìm kiếm tin tức..." oninput="searchNews()">
-        <i class="fas fa-search"></i>
-      </div>
-      <div id="news-container"></div>
-    </section>
-  </main>
+  <audio id="bgMusic" loop>
+    <source src="https://files.catbox.moe/ry1gut.mp3" type="audio/mpeg">
+  </audio>
 
-  <script>
-    // Hàm tìm kiếm MOD
-    function searchProducts() {
-      const searchTerm = document.getElementById('search-mod').value.toLowerCase();
-      const products = document.querySelectorAll('#product-container .product');
-      products.forEach(product => {
-        const productName = product.querySelector('.name').textContent.toLowerCase();
-        if (productName.includes(searchTerm)) {
-          product.style.display = 'block';
-        } else {
-          product.style.display = 'none';
-        }
-      });
-    }
-
-    function searchNews() {
-      const searchTerm = document.getElementById('search-news').value.toLowerCase();
-      const newsItems = document.querySelectorAll('#news-container .news-item');
-      newsItems.forEach(item => {
-        const newsTitle = item.querySelector('h3')?.textContent.toLowerCase() || '';
-        const newsText = item.querySelector('p')?.textContent.toLowerCase() || '';
-        if (newsTitle.includes(searchTerm) || newsText.includes(searchTerm)) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
-      });
-    }
-  </script>
+  <div class="popup-overlay" id="welcomePopup">
+    <div class="popup-content">
+      <h2>Chào mừng bạn đến với trang web!</h2>
+      <p>Hãy khám phá danh sách skin hấp dẫn bên dưới.</p>
+      <button onclick="closePopup()">Bắt đầu khám phá</button>
+    </div>
+  </div>
 
   <script src="script.js"></script>
+  <script>
+    const audio = document.getElementById('bgMusic');
+    function closePopup() {
+      document.getElementById('welcomePopup').style.display = 'none';
+      audio.play();
+    }
+  </script>
 </body>
 </html>
