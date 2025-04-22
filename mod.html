@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chi tiết Mod</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fbeec1;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    .mod-container {
+      max-width: 500px;
+      margin: auto;
+      background-color: #fff8dc;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    h2 {
+      font-size: 24px;
+      color: #b22222;
+      margin-bottom: 15px;
+    }
+    .mod-img {
+      width: 100%;
+      border-radius: 10px;
+      border: 4px solid #b22222;
+      margin-bottom: 20px;
+    }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    .btn-red {
+      background-color: #dc3545;
+      color: white;
+    }
+    .btn-gray {
+      background-color: #ccc;
+      color: #333;
+      cursor: not-allowed;
+    }
+    .checking {
+      display: inline-block;
+      margin-top: 10px;
+      font-style: italic;
+      color: #666;
+    }
+    #loading {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    #unlockLink {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="mod-container">
+    <h2 id="modTitle">Tên Mod</h2>
+    <img id="modImg" src="" alt="Ảnh Mod" class="mod-img">
+    <p>Tiến trình: <span id="progress">0/2</span></p>
+
+    <button id="subscribeBtn" class="btn btn-red">Đăng ký kênh</button>
+    <span id="checking1" class="checking" style="display: none;">Đang kiểm tra...</span><br>
+
+    <button id="likeBtn" class="btn btn-gray" disabled>Thích video</button>
+    <span id="checking2" class="checking" style="display: none;">Đang kiểm tra...</span>
+
+    <div id="loading" style="display: none;">Đang xử lý...</div>
+    <div id="unlockLink" style="display: none;">
+      <p>Link tải: <a id="modLink" href="#" target="_blank">Mở link</a></p>
+    </div>
+  </div>
+
+  <script>
+    let progress = 0;
+
+    function getParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    function updateProgress() {
+      progress++;
+      document.getElementById("progress").innerText = `${progress}/2`;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const name = getParam("name");
+      const img = getParam("img");
+      const url = getParam("url");
+      const yt = getParam("yt");
+      const video = getParam("video");
+
+      document.getElementById("modTitle").innerText = name || "Mod không xác định";
+      document.getElementById("modImg").src = img || "";
+      document.getElementById("modLink").href = url || "#";
+
+      document.getElementById("subscribeBtn").addEventListener("click", function () {
+        if (yt) window.open(yt, "_blank");
+        this.disabled = true;
+        document.getElementById("checking1").style.display = "inline";
+
+        setTimeout(() => {
+          this.classList.replace("btn-red", "btn-gray");
+          this.innerText = "Đã đăng ký";
+          document.getElementById("checking1").style.display = "none";
+
+          const likeBtn = document.getElementById("likeBtn");
+          likeBtn.disabled = false;
+          likeBtn.classList.replace("btn-gray", "btn-red");
+          updateProgress();
+        }, 2000);
+      });
+
+      document.getElementById("likeBtn").addEventListener("click", function () {
+        if (video) window.open(video, "_blank");
+        this.disabled = true;
+        document.getElementById("checking2").style.display = "inline";
+
+        setTimeout(() => {
+          this.classList.replace("btn-red", "btn-gray");
+          this.innerText = "Đã thích";
+          document.getElementById("checking2").style.display = "none";
+
+          updateProgress();
+
+          document.getElementById("loading").style.display = "block";
+          setTimeout(() => {
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("unlockLink").style.display = "block";
+          }, 3000);
+        }, 2000);
+      });
+    });
+  </script>
+</body>
+</html>
