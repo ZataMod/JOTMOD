@@ -1,36 +1,43 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quản lý Skin</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Quản lý Skin</h1>
+  <header>
+    <h1>Quản Lý Skin</h1>
+  </header>
 
-  <section id="upload">
-    <h2>Thêm Skin</h2>
-    <label>ID:</label>
-    <input type="text" id="id">
-    <label>Tên Skin:</label>
-    <input type="text" id="name">
-    <label>Ảnh:</label>
-    <input type="file" id="img">
-    <label>File tải:</label>
-    <input type="text" id="url">
-    <button onclick="uploadSkin()">Tải lên</button>
-    <div id="uploadResult" class="message"></div>
+  <nav>
+    <button onclick="switchTab('add')" class="active">Thêm Skin</button>
+    <button onclick="switchTab('remove')">Xóa Skin</button>
+  </nav>
+
+  <section id="add" class="active">
+    <h2>Thêm Skin Mới</h2>
+    <input type="file" id="imageInput" accept="image/*">
+    <input type="text" id="skinId" placeholder="ID Skin">
+    <input type="text" id="skinName" placeholder="Tên Skin">
+    <input type="text" id="fileUrl" placeholder="Link tải file">
+    <button onclick="uploadImage()">Tải ảnh & cập nhật JSON</button>
+
+    <div id="progressContainer">
+      <div id="progressBar"></div>
+    </div>
+
+    <div id="result"></div>
   </section>
 
   <section id="remove">
     <h2>Xóa Skin</h2>
-    <label for="removeId">Chọn ID Skin cần xóa:</label>
     <select id="removeId">
-      <option disabled selected>Đang tải danh sách...</option>
+      <option disabled selected>-- Chọn ID Skin để xóa --</option>
     </select>
-    <button class="delete-btn" onclick="removeSkin()">Xóa</button>
-    <div id="removeResult" class="message"></div>
+    <button onclick="removeSkin()">Xóa khỏi GitHub JSON</button>
+    <div id="removeResult"></div>
   </section>
 
   <script src="script.js"></script>
